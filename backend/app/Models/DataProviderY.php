@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DataProviderY extends Model
 {
+    use HasFactory;
+    
     protected $table = 'data_provider_y';
 
     protected $appends = ['providerName'];
+
+    public $timestamps = false;
 
     protected $fillable = [
         'balance', 'currency', 'email', 'status', 'created_at', 'id',
