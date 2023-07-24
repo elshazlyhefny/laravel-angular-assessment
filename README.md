@@ -99,3 +99,62 @@ Task will be evaluated based on
 3. Code scalability : ability to add  `DataProviderZ` by small changes 
 
 
+## Solution   Description:
+This project implements a full-stack application using Laravel for the backend and Angular for the frontend. The backend application provides API endpoints to upload and process data from DataProviderX.json and DataProviderY.json files. Users can also retrieve and filter user data from both providers.
+
+The backend application includes the following features:
+
+API endpoint /api/v1/import-data to upload and process the JSON data from DataProviderX.json and DataProviderY.json.
+API endpoint /api/v1/users to retrieve and filter user data from both providers based on payment providers, status codes, amount range, and currency.
+The frontend application is built with Angular and consumes the API endpoints provided by the backend to display the user data in a data table with various filter options.
+
+## Steps to Run the Application:
+Before running the application, make sure you have Docker and Angular CLI installed on your system.
+
+## 1. Run Docker:
+To set up the backend application and database using Docker, follow these steps:
+# Navigate to the root directory of the project
+
+```bash
+cd backend
+```
+# Build and run the Docker containers
+```bash
+docker-compose up -d
+```
+
+This will set up the backend application and MySQL database using Docker containers.
+
+## 2. Run Migrations and Seed:
+Next, run the database migrations and seed the database with initial data using the following commands
+```bash
+# Access the Laravel Docker container
+docker exec -it laravel bash
+```
+```bash
+# Inside the container, run the migrations and seed
+php artisan migrate --seed
+exit
+```
+This will create the necessary tables and seed the database with sample data from the seeders.
+
+## 3. Run Angular Server:
+To run the frontend Angular application, follow these steps:
+```bash
+# Navigate to the root directory of the project
+cd frontend
+
+# Install Angular dependencies
+npm install
+
+# Start the Angular development server
+ng serve
+```
+The Angular development server will start, and you can access the application at http://localhost:4200/.
+
+Usage:
+Upload Data: To upload the DataProviderX.json and DataProviderY.json files, go to the welcome page and click on the "Upload Data" link. Select the files and the provider from the dropdown, then click the "Submit" button to import the data.
+
+View Users: To view and filter the users, go to the user list page by clicking on the "Users" link. You can apply filters based on the payment provider, status code, amount range, and currency to view specific user data.
+
+Now, you have a fully functional backend and frontend application running. Enjoy exploring the user data and filtering options!
