@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\DataProviderXService;
 use App\Services\DataProviderYService;
 use App\Http\Requests\UserIndexRequest;
+use App\Http\Resources\DataProviderXResource;
+use App\Http\Resources\DataProviderYResource;
 
 class UserController extends Controller
 {
@@ -34,10 +36,10 @@ class UserController extends Controller
         }
         // Fetch data from services based on the filters
         if ($provider === 'DataProviderX' || $provider === null || $provider === 'both') {
-            $usersX = $dataProviderXService->filterUsers($filters);;
+            $usersX = DataProviderXResource::collection($dataProviderXService->filterUsers($filters))->resolve();
         }
         if ($provider === 'DataProviderY'|| $provider === null || $provider === 'both') {
-            $usersY = $dataProviderYService->filterUsers($filters);
+            $usersY = DataProviderYResource::collection($dataProviderYService->filterUsers($filters))->resolve();
         }
         // Combine and return the filtered results
         $users = array_merge($usersX, $usersY);

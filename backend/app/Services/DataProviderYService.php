@@ -3,13 +3,14 @@ namespace App\Services;
 
 use App\Models\DataProviderY;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Interfaces\DataProviderInterface;
 
 class DataProviderYService implements DataProviderInterface
 {
 
     // Combine all filters together
-    public function filterUsers($filters = []): array
+    public function filterUsers($filters = []): object
     {
         $query = DataProviderY::query();
 
@@ -36,7 +37,7 @@ class DataProviderYService implements DataProviderInterface
         if (isset($filters['currency'])) {
             $query->where('currency', $filters['currency']);
         }
-        return $query->get()->toArray();
+        return $query->get();
     }
 
     public function saveFromJsonFile($filePath)
@@ -46,7 +47,10 @@ class DataProviderYService implements DataProviderInterface
         try {
             $this->processJsonFile($filePath, function ($data) {
                 foreach ($data as $item) {
-                    DataProviderY   ::create($item);
+                    if (!is_array($item)) {
+                        throw new \ErrorException('json file has data not faild');
+                    }
+                    DataProviderY::create($item);
                 }
             });
 
@@ -61,12 +65,13 @@ class DataProviderYService implements DataProviderInterface
 
     protected function processJsonFile($filePath, callable $callback)
     {
-        $fileContent = file_get_contents($filePath);
+        $fileContent = Storage::disk('local')->get($filePath);
         $jsonData = json_decode($fileContent, true);
-
         $chunkSize = 1000; // Adjust chunk size as needed
-
-        foreach (array_chunk($jsonData, $chunkSize) as $dataChunk) {
+        if (!is_array($jsonData)) {
+            throw new \ErrorException('json file has data not faild');
+        }
+        foreach (array_chunk($jsonData, $chunkSize, true) as $dataChunk) {
             $callback($dataChunk);
         }
     }

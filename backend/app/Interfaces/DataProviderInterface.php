@@ -9,5 +9,5 @@ interface DataProviderInterface
      * @param array $filters
      * @return \Illuminate\Support\Collection
      */
-    public function filterUsers($filters = []): array;
+    public function filterUsers($filters = []): object;
 }

@@ -1,0 +1,32 @@
+.user-list-container {
+    margin: 20px;
+  }
+  
+  .user-list-container h2 {
+    color: #007bff;
+  }
+  
+  .filter-container {
+    margin-bottom: 10px;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-table th,
+  .user-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  .user-table th {
+    background-color: #f0f0f0;
+    text-align: left;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  

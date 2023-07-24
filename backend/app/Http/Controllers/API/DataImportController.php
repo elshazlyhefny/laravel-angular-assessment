@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\DataProviderXService;
 use App\Services\DataProviderYService;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DataImportRequest;
 
 class DataImportController extends Controller
@@ -24,13 +25,16 @@ class DataImportController extends Controller
                 $dataProviderYService = new DataProviderYService();
                 $dataProviderYService->saveFromJsonFile($tempFilePath);
             }
+            // remove file
+            Storage::delete($tempFilePath);
         } catch (\Exception $e) {
             // Handle any exceptions that may occur during the import process
             // Log the error for debugging purposes
             \Log::error($e->getMessage());
-
+            // remove file 
+            Storage::delete($tempFilePath);
             // Provide feedback to the user about the error
-            return response()->json(['message' => 'Error importing data. Please try again later.'], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }
 
 

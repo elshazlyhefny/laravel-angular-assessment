@@ -24,4 +24,16 @@ class DataProviderY extends Model
     {
         return class_basename(static::class);
     }
+
+    // Get the name of the status.
+    public function getStringStatusAttribute()
+    {
+        // Map status code strings to their corresponding integer values
+        $statusCodeMap = [
+            '100' => 'authorised',
+            '200' => 'decline',
+            '300' => 'refunded',
+        ];
+        return $statusCodeMap[strval($this->status)] ?? 0;
+    }
 }

@@ -3,8 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  isMenuCollapsed = true;
+  onFilesUploaded() {
+    // This function will be called when files are uploaded successfully
+    // Implement any additional logic here, if needed
+  }
 }

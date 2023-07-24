@@ -1,0 +1,16 @@
+.progress {
+    height: 25px;
+  }
+  
+  .progress-bar {
+    line-height: 25px;
+  }
+  
+  /* Modal */
+  .modal-dialog {
+    max-width: 400px;
+  }
+  
+  .modal-footer {
+    justify-content: flex-end;
+  }

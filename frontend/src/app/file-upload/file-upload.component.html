@@ -1,0 +1,93 @@
+<div class="container mt-3">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4>Upload Page</h4>
+      <form #uploadForm="ngForm" (ngSubmit)="onSubmitForm(uploadForm)">
+        <div class="form-group">
+          <label for="fileInput">Upload File:</label>
+          <input
+            type="file"
+            class="form-control"
+            id="fileInput"
+            name="file"
+            (change)="onFileChange($event)"
+          />
+          <div class="alert alert-danger mt-2" *ngIf="fileInputInvalid">
+            Please select a file.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="providerSelect">Select Provider:</label>
+          <select
+            class="form-control"
+            id="providerSelect"
+            name="provider"
+            [(ngModel)]="selectedProvider"
+            required
+          >
+            <option value="DataProviderX">DataProviderX</option>
+            <option value="DataProviderY">DataProviderY</option>
+          </select>
+        </div>
+        <!-- <div
+          class="alert alert-danger"
+          *ngIf="uploadForm.submitted && uploadForm.invalid"
+        >
+          Provider and File are required.
+        </div> -->
+        <div
+          class="progress mt-3"
+          *ngIf="uploadProgress > 0 && uploadProgress < 100"
+        >
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [style.width.%]="uploadProgress"
+          >
+            {{ uploadProgress }}%
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Success Modal -->
+<ng-template #successModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Success!</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Your file has been uploaded successfully.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.dismiss()">
+      OK
+    </button>
+  </div>
+</ng-template>
+
+
+<!-- Error Modal -->
+<ng-template #errorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Error!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ error }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.dismiss()">OK</button>
+  </div>
+</ng-template>
