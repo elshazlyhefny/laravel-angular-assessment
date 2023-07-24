@@ -1,5 +1,5 @@
 <!-- src/app/user-list/user-list.component.html -->
-<div class="filter-container">
+<div class="container mt-3">
   <div class="row mt-4">
     <div class="col-md-4">
       <div class="form-group">
@@ -74,28 +74,32 @@
       </div>
     </div>
   </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Provider</th>
+            <th>Status Code</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.provider }}</td>
+            <td>{{ user.statusCode }}</td>
+            <td>{{ user.balance }}</td>
+            <td>{{ user.currency }}</td>
+            <td>{{ user.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<table class="user-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-      <th>Provider</th>
-      <th>Status Code</th>
-      <th>Balance</th>
-      <th>Currency</th>
-      <th>Created At</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of filteredUsers">
-      <td>{{ user.id }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.provider }}</td>
-      <td>{{ user.statusCode }}</td>
-      <td>{{ user.balance }}</td>
-      <td>{{ user.currency }}</td>
-      <td>{{ user.created_at }}</td>
-    </tr>
-  </tbody>
-</table>
